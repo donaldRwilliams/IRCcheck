@@ -40,8 +40,10 @@ Here it is assumed that there is *no* covariance between the important
 ``` r
 library(IRCcheck)
 library(corrplot)
+library(corpcor)
 library(glmnet)
 library(MASS)
+library(psych)
 
 # block diagonal
 cors <- IRCcheck:::irc_met
@@ -127,7 +129,49 @@ Quite the difference (e.g., all true coefficients are positive). Note
 that the goal is then to select lambda, which will be quite the
 difficult task when the IRC is not satisfied.
 
-For Gaussian graphical models, use the function `irc_ggm()`.
+## Gaussian graphical Models
+
+For GGMs, I find it easier to work with a partial correlation matrix and
+then randomly take subsets. The following looks at partial correlations
+estimated from items assessing personality.
+
+``` r
+# partials from big 5 data
+pcors <- corpcor::cor2pcor(cor(na.omit(psych::bfi[,1:25])))
+
+# collect
+irc <- NA 
+
+for(i in 1:10){
+  
+   # randomly select 10
+  id <- sample(1:25, size = 10, replace = F)
+  
+  # submatrix
+  pcor_sub <- pcors[id, id]
+  
+  # true network
+  true_net <- ifelse(abs(pcor_sub) < 0.05, 0, pcor_sub)
+  
+  irc[i] <- irc_ggm(true_net)
+}
+
+hist(1- irc, breaks = 100, xlab = "1 - infinity norm", main = "")
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+
+``` r
+
+# failed
+mean(1 - irc < 0)
+#> [1] 0.1
+```
+
+Note that negative fails, as the irrelevant covariance exceeded 1. The
+IRC will fail more often with more variables (e.g., `15` instead of
+`10`). Also, if `0.05` is changed to a larger value this will result in
+more sparsity. As a result, the IRC will be satisfied more often.
 
 ## References
 
