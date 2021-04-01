@@ -16,7 +16,7 @@ irc_regression(X, which_nonzero)
 infinity norm (greater than 1 the IRC is violated)
 }
 \description{
-Check the IRC in multiple regression, following the Equation (2)
+Check the IRC in multiple regression, following Equation (2)
 in \insertCite{Zhao2006}{IRCcheck}.
 }
 \note{

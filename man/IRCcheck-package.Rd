@@ -2,14 +2,16 @@
 % Please edit documentation in R/IRCcheck-package.R
 \docType{package}
 \name{IRCcheck-package}
-\alias{IRCcheck}
 \alias{IRCcheck-package}
-\title{IRCcheck: What the Package Does (One Line, Title Case)}
+\title{IRCcheck:  Irrepresentable Condition Check}
 \description{
-What the package does (one paragraph).
+L1 regularization requires the IRC for consistent model selection, that is,
+with more data, the true model is converged upon. This package allows
+for checking the IRC in both regression and Gaussian graphical models.\preformatted{         Importantly, the IRC cannot be checked in real data. The primary 
+         use for this package is to explore the IRC in a \\emph\{true\} model
+         that may be used in simulation study. Alternatively, it is very 
+         informative to simply look at the IRC as a function of sparsity
+         and the number of variables, including the regularization path
+         and false selections.
 }
-\author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
-
 }
-\keyword{internal}

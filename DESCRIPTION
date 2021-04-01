@@ -1,19 +1,21 @@
 Package: IRCcheck
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Irrepresentable Condition Check
+Version: 1.0.0
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Donald",
+           family = "Williams",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "drwwilliams@ucdavis.edu")
+Description: Check the Irrepresentable condition in both L1-regualrized regression and 
+            Gaussian graphical models.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Imports: 
   glmnet,
   MASS,
-  Rdpack
+  Rdpack,
+  GGMncv,
+  corpcor
 RdMacros: 
   Rdpack,
 LazyData: true

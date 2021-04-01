@@ -1,6 +1,6 @@
 #' @title Irrepresentable Condition: Regression
 #'  
-#' @description Check the IRC in multiple regression, following the Equation (2) 
+#' @description Check the IRC in multiple regression, following Equation (2) 
 #'              in \insertCite{Zhao2006}{IRCcheck}.
 #' 
 #' @param X A matrix of dimensions \emph{n} (observations) by \emph{p} (variables).
