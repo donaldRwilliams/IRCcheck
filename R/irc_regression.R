@@ -41,7 +41,7 @@ irc_regression <- function(X, which_nonzero){
   betas <- rep(1, length(which_nonzero))
   
   # see page 2551 
-  irc <- t(t(X_1) %*% X_2) %*% solve(t(X_1) %*% X_1) %*% sign(betas) 
+  irc <- t(solve(t(X_1) %*% X_1) %*% t(X_1) %*% X_2) %*% sign(betas) 
   
   # infinity norm 
   infinity_norm <-  norm(irc, type = "i" ) 
