@@ -47,6 +47,6 @@ irc_regression <- function(X, which_nonzero){
   infinity_norm <-  norm(irc, type = "i" ) 
   
   # negative fails
-  return(1 - infinity_norm)
+  return(infinity_norm)
 }
 
