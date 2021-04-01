@@ -1,11 +1,21 @@
-#' Irrepresentable Condition: Regression
-#'
-#' @param X A matrix of dimensions \emph{n} (observations) by \emph{p} (variables)
+#' @title Irrepresentable Condition: Regression
+#'  
+#' @description Check the IRC in multiple regression, following the Equation (2) 
+#'              in \insertCite{Zhao2006}{IRCcheck}.
+#' 
+#' @param X A matrix of dimensions \emph{n} (observations) by \emph{p} (variables).
 #' 
 #' @param which_nonzero Numeric vector with the location of the nonzero relations 
-#' (a.k.a., the active set)
+#' (a.k.a., the active set).
+#' 
+#' @references
+#' \insertAllCited{}
 #'
-#' @return 1 - infinity norm (negative the IRC is violated)
+#' @note It is common to take 1 - the infinity norm, thereby indicating the IRC
+#'       is violated when the value is negative.
+#' 
+#' @return infinity norm (greater than 1 the IRC is violated)
+#' 
 #' 
 #' @export
 #' @importFrom MASS mvrnorm
@@ -29,6 +39,37 @@
 #' # plot
 #' plot(fit, xvar = "lambda")
 #' 
+#' 
+#'# Example (more or less) from Zhao and Yu (2006)
+#'# section 3.3
+#' 
+#'# number of predictors
+#' p <- 2^4
+#' 
+#'# number active (q in Zhao and Yu 2006)
+#' n_beta <- 4/8 * p
+#' 
+#'# betas
+#' beta <- c(rep(1, n_beta), rep(0, p - n_beta))
+#' 
+#' check <- NA
+#' for(i in 1:100){
+#'   cors <- cov2cor(
+#'     solve(
+#'       rWishart(1, p , diag(p))[,,1]
+#'     ))
+#'   
+#'   # predictors
+#'   X <- MASS::mvrnorm(500, rep(0, p), Sigma = cors, empirical = TRUE)
+#'   
+#'   check[i] <- irc_regression(X, which_nonzero = which(beta != 0))
+#' }
+#' 
+#'# less than 1
+#' mean(check  < 1)
+#' 
+#'# or greater than 0
+#' mean(1 - check > 0)
 #' }
 irc_regression <- function(X, which_nonzero){ 
   
@@ -46,7 +87,7 @@ irc_regression <- function(X, which_nonzero){
   # infinity norm 
   infinity_norm <-  norm(irc, type = "i" ) 
   
-  # negative fails
+  # should be lower than 1
   return(infinity_norm)
 }
 
