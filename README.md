@@ -129,7 +129,7 @@ Quite the difference (e.g., all true coefficients are positive). Note
 that the goal is then to select lambda, which will be quite the
 difficult task when the IRC is not satisfied.
 
-## Gaussian graphical Models
+## Gaussian Graphical Models
 
 For GGMs, I find it easier to work with a partial correlation matrix and
 then randomly take subsets. The following looks at partial correlations
