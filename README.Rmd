@@ -47,7 +47,7 @@ devtools::install_github("donaldRwilliams/IRCcheck")
 ## Example: IRC is met exactly
 Here it is assumed that there is *no* covariance between the important 
 (active) and unimportant variables.
-```{r, message=FALSE}
+```{r, message=FALSE, warning=FALSE}
 library(IRCcheck)
 library(corrplot)
 library(glmnet)

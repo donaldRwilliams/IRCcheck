@@ -42,7 +42,6 @@ library(IRCcheck)
 library(corrplot)
 library(glmnet)
 library(MASS)
-#> Warning: package 'MASS' was built under R version 4.0.3
 
 # block diagonal
 cors <- IRCcheck:::irc_met
