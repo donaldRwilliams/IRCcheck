@@ -17,7 +17,7 @@ L1-regularization requires the IRC for consistent model selection, that
 is, with more data, the true model is recovered.
 
 The IRC cannot be checked in real data. The primary use for this package
-is to explore the IRC in a true model that may be used in simulation
+is to explore the IRC in a true model that may be used in a simulation
 study. Alternatively, it is very informative to simply look at the IRC
 as a function of sparsity and the number of variables, including the
 regularization path and model selection.
@@ -62,7 +62,7 @@ beta <- c(rep(1, 10), rep(0, 10))
 set.seed(2)
 X <- MASS::mvrnorm(n = 500, mu = rep(0, 20), Sigma = cors)
 
-# SNR = 10
+# SNR = 5
 sigma <- sqrt(as.numeric(crossprod(beta, cors %*% beta) / 5))
 
 set.seed(2)
@@ -97,7 +97,7 @@ corrplot(cors)
 Here is how to check the IRC in regression
 
 ``` r
-# SNR = 10
+# SNR = 5
 sigma <- sqrt(as.numeric(crossprod(beta, cors %*% beta) / 5))
 
 set.seed(2)
