@@ -10,7 +10,7 @@ irc_ggm(true_network, cores = 2)
 \item{true_network}{A matrix of dimensions \emph{p} by \emph{p}, assumed to be
 a partial correlation matrix.}
 
-\item{cores}{Integer. Number of cores for parallel computing (defaults to \code{detectCores() - 1})}
+\item{cores}{Integer. Number of cores for parallel computing (defaults to \code{2})}
 }
 \value{
 infinity norm (greater than 1 the IRC is violated, with closer to zero better).

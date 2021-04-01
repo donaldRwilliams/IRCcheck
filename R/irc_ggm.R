@@ -6,7 +6,7 @@
 #' @param true_network A matrix of dimensions \emph{p} by \emph{p}, assumed to be 
 #'                     a partial correlation matrix.
 #'                     
-#' @param cores Integer. Number of cores for parallel computing (defaults to \code{detectCores() - 1})
+#' @param cores Integer. Number of cores for parallel computing (defaults to \code{2})
 #' 
 #' @references
 #' \insertAllCited{}

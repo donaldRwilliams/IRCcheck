@@ -6,7 +6,7 @@ Authors@R:
            family = "Williams",
            role = c("aut", "cre"),
            email = "drwwilliams@ucdavis.edu")
-Description: Check the Irrepresentable condition in both L1-regualrized regression and 
+Description: Check the Irrepresentable condition in both L1-regularized regression and 
             Gaussian graphical models.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -15,7 +15,8 @@ Imports:
   MASS,
   Rdpack,
   GGMncv,
-  corpcor
+  corpcor,
+  parallel
 RdMacros: 
   Rdpack,
 LazyData: true
