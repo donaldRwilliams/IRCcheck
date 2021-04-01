@@ -3,9 +3,8 @@
 
 # IRCcheck: Irrepresentable Condition Check
 
-<!-- badges: start -->
-
-<!-- badges: end -->
+[![CircleCI build
+status](https://circleci.com/gh/donaldRwilliams/IRCcheck.svg?style=svg)](https://circleci.com/gh/donaldRwilliams/IRCcheck)
 
 The goal of IRCcheck is to check the irrepresentable condition in both
 L1-regularized regression (Equation 2 in Zhao and Yu 2006) and Gaussian
@@ -41,10 +40,9 @@ Here it is assumed that there is *no* covariance between the important
 ``` r
 library(IRCcheck)
 library(corrplot)
-#> corrplot 0.84 loaded
 library(glmnet)
-#> Loading required package: Matrix
-#> Loaded glmnet 4.0-2
+library(MASS)
+#> Warning: package 'MASS' was built under R version 4.0.3
 
 # block diagonal
 cors <- IRCcheck:::irc_met
@@ -126,8 +124,9 @@ plot(fit, xvar = "lambda")
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
-Quite the difference. Note that the goal is then to select lambda, which
-will be quite the difficult task when the IRC is not satisfied.
+Quite the difference (e.g., all true coefficients are positive). Note
+that the goal is then to select lambda, which will be quite the
+difficult task when the IRC is not satisfied.
 
 For Gaussian graphical models, use the function `irc_ggm()`.
 

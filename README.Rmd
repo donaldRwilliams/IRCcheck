@@ -16,8 +16,8 @@ knitr::opts_chunk$set(
 
 # IRCcheck: Irrepresentable Condition Check
 
-<!-- badges: start -->
-<!-- badges: end -->
+[![CircleCI build status](https://circleci.com/gh/donaldRwilliams/IRCcheck.svg?style=svg)](https://circleci.com/gh/donaldRwilliams/IRCcheck)
+
 
 The goal of IRCcheck is to check the irrepresentable condition in 
 both L1-regularized regression [Equation 2 in @Zhao2006]  and Gaussian graphical 
@@ -47,10 +47,11 @@ devtools::install_github("donaldRwilliams/IRCcheck")
 ## Example: IRC is met exactly
 Here it is assumed that there is *no* covariance between the important 
 (active) and unimportant variables.
-```{r}
+```{r, message=FALSE}
 library(IRCcheck)
 library(corrplot)
 library(glmnet)
+library(MASS)
 
 # block diagonal
 cors <- IRCcheck:::irc_met
@@ -121,7 +122,8 @@ fit <- glmnet(X, y)
 plot(fit, xvar = "lambda")
 ```
 
-Quite the difference. Note that the goal is then to select lambda, which
+Quite the difference (e.g., all true coefficients are positive). 
+Note that the goal is then to select lambda, which
 will be quite the difficult task when the IRC is not satisfied. 
 
 For Gaussian graphical models, use the function `irc_ggm()`.
