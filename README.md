@@ -145,7 +145,7 @@ irc <- NA
 for(i in 1:10){
   
    # randomly select 10
-  id <- sample(1:25, size = 10, replace = F)
+  id <- sample(1:25, size = 20, replace = F)
   
   # submatrix
   pcor_sub <- pcors[id, id]
@@ -156,7 +156,9 @@ for(i in 1:10){
   irc[i] <- irc_ggm(true_net)
 }
 
-hist(1- irc, breaks = 100, xlab = "1 - infinity norm", main = "")
+hist(1- irc, breaks = 100, 
+     xlab = "1 - infinity norm", 
+     main = "", xlim  = c(min(1 - irc), 1))
 ```
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
@@ -165,13 +167,13 @@ hist(1- irc, breaks = 100, xlab = "1 - infinity norm", main = "")
 
 # failed
 mean(1 - irc < 0)
-#> [1] 0.1
+#> [1] 1
 ```
 
 Note that negative fails, as the irrelevant covariance exceeded 1. The
-IRC will fail more often with more variables (e.g., `15` instead of
-`10`). Also, if `0.05` is changed to a larger value this will result in
-more sparsity. As a result, the IRC will be satisfied more often.
+IRC will fail less often with fewer variables. Also, if `0.05` is
+changed to a larger value this will result in more sparsity. As a
+result, the IRC will be satisfied more often.
 
 ## References
 
