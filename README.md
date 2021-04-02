@@ -57,6 +57,11 @@ corrplot(cors)
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
+In this plot, variables 1 through 10 and 11 through 20 are correlated
+with each other. The latter are assumed to be “active” for predicting
+the response and the former are truly null associations. Notice there is
+no correlation between the sets.
+
 Let’s inspect the regularization path
 
 ``` r
@@ -84,6 +89,8 @@ plot(fit, xvar = "lambda")
 
 ## Example: IRC is not met
 
+Here I generate a correlation matrix from a Wishart distribution.
+
 ``` r
 # random correlation matrix
 set.seed(2)
@@ -98,7 +105,11 @@ corrplot(cors)
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
-Here is how to check the IRC in regression
+Now there are correlations between the sets, which, in my experience, is
+the more realistic situation (albeit these are very strong
+correlations).
+
+Here is how to check the IRC in regression with **IRCcheck**
 
 ``` r
 # SNR = 5
@@ -146,7 +157,7 @@ irc <- NA
 
 for(i in 1:10){
   
-   # randomly select 10
+   # randomly select 20
   id <- sample(1:25, size = 20, replace = F)
   
   # submatrix
@@ -172,8 +183,10 @@ mean(1 - irc < 0)
 #> [1] 1
 ```
 
-Note that negative fails, as the irrelevant covariance exceeded 1. The
-IRC will fail less often with fewer variables. Also, if `0.05` is
+Note that negative fails, as the irrelevant covariance exceeded 1. In
+fact, the IRC was not satisfied in any of the checks (10 iterations).
+
+The IRC will fail less often with fewer variables. Also, if `0.05` is
 changed to a larger value this will result in more sparsity. As a
 result, the IRC will be satisfied more often.
 

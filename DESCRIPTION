@@ -1,7 +1,7 @@
 Package: IRCcheck
 Title: Irrepresentable Condition Check
 Version: 1.0.0
-Date: 2020-04-01
+Date: 2021-04-01
 Authors@R: 
     person(given = "Donald",
            family = "Williams",
@@ -20,6 +20,5 @@ Imports:
   parallel
 RdMacros: 
   Rdpack,
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
