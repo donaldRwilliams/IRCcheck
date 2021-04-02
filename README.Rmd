@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-<img src="man/figures/imgfile.png" width = 150 />
+<img src="man/figures/imgfile.png" width = 200 />
 
 # IRCcheck: Irrepresentable Condition Check
 
