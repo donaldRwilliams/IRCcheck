@@ -273,11 +273,12 @@ At each step, the IRC is increasingly violated.
 ### 95% Sparsity
 
 ``` r
+set.seed(1)
 # data
-Y <- MASS::mvrnorm(n = 500,
+Y <- MASS::mvrnorm(n = 5000,
                    rep(0, 10),
                    Sigma = eprob_05$cors,
-                   empirical = TRUE) 
+                   empirical = FALSE) 
 
 # non regularized, for comparison
 fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
@@ -285,19 +286,19 @@ fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
 # specificity
 IRCcheck:::compare(True = eprob_05$adj, 
                    Estimate = fit$adj)[1,]
-#>       measure score
-#> 1 Specificity     1
+#>       measure     score
+#> 1 Specificity 0.9767442
 
 # lasso
-fit <- GGMncv::ggmncv(cor(Y), n = 500,
+fit <- GGMncv::ggmncv(cor(Y), n = 5000,
                       penalty = "lasso", 
                       progress = FALSE)
 
 # specificity
 IRCcheck:::compare(True = eprob_05$adj, 
                    Estimate = fit$adj)[1,]
-#>       measure score
-#> 1 Specificity     1
+#>       measure     score
+#> 1 Specificity 0.9767442
 ```
 
 Notice that both methods work well.
@@ -305,11 +306,12 @@ Notice that both methods work well.
 ### 75% Sparsity
 
 ``` r
+set.seed(1)
 # data
-Y <- MASS::mvrnorm(n = 500,
+Y <- MASS::mvrnorm(n = 5000,
                    rep(0, 10),
                    Sigma = eprob_25$cors,
-                   empirical = TRUE) 
+                   empirical = FALSE) 
 
 # non regularized, for comparison
 fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
@@ -322,15 +324,15 @@ IRCcheck:::compare(True = eprob_25$adj,
 
 # lasso
 fit <- GGMncv::ggmncv(cor(Y), 
-              n = 500, 
+              n = 5000, 
               penalty = "lasso", 
               progress = FALSE)
 
 # specificity
 IRCcheck:::compare(True = eprob_25$adj, 
         Estimate = fit$adj)[1,]
-#>       measure score
-#> 1 Specificity     1
+#>       measure     score
+#> 1 Specificity 0.8235294
 ```
 
 ### 50% Sparsity
@@ -339,11 +341,12 @@ Now we are getting to a level of sparsity that is common in, say, the
 social-behavioral sciences.
 
 ``` r
+set.seed(1)
 # data
-Y <- MASS::mvrnorm(n = 500,
+Y <- MASS::mvrnorm(n = 5000,
                    rep(0, 10),
                    Sigma = eprob_50$cors,
-                   empirical = TRUE) 
+                   empirical = FALSE) 
 
 # non regularized, for comparison
 fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
@@ -351,12 +354,12 @@ fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
 # specificity
 IRCcheck:::compare(True = eprob_50$adj, 
                    Estimate = fit$adj)[1,]
-#>       measure score
-#> 1 Specificity     1
+#>       measure     score
+#> 1 Specificity 0.9130435
 
 # lasso
 fit <- GGMncv::ggmncv(cor(Y), 
-              n = 500, 
+              n = 5000, 
               penalty = "lasso", 
               progress = FALSE)
 
@@ -364,7 +367,7 @@ fit <- GGMncv::ggmncv(cor(Y),
 IRCcheck:::compare(True = eprob_50$adj, 
         Estimate = fit$adj)[1,]
 #>       measure     score
-#> 1 Specificity 0.7826087
+#> 1 Specificity 0.3913043
 ```
 
 ### 25% Sparsity
@@ -372,11 +375,12 @@ IRCcheck:::compare(True = eprob_50$adj,
 An even denser graph, which is not uncommon.
 
 ``` r
+set.seed(1)
 # data
-Y <- MASS::mvrnorm(n = 500,
+Y <- MASS::mvrnorm(n = 5000,
                    rep(0, 10),
                    Sigma = eprob_75$cors,
-                   empirical = TRUE) 
+                   empirical = FALSE) 
 
 # non regularized, for comparison
 fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
@@ -389,7 +393,7 @@ IRCcheck:::compare(True = eprob_75$adj,
 
 # lasso
 fit <- GGMncv::ggmncv(cor(Y), 
-              n = 500, 
+              n = 5000, 
               penalty = "lasso", 
               progress = FALSE)
 

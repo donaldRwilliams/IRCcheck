@@ -256,11 +256,12 @@ the IRC is increasingly violated.
 
 ### 95% Sparsity
 ```{r}
+set.seed(1)
 # data
-Y <- MASS::mvrnorm(n = 500,
+Y <- MASS::mvrnorm(n = 5000,
                    rep(0, 10),
                    Sigma = eprob_05$cors,
-                   empirical = TRUE) 
+                   empirical = FALSE) 
 
 # non regularized, for comparison
 fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
@@ -270,7 +271,7 @@ IRCcheck:::compare(True = eprob_05$adj,
                    Estimate = fit$adj)[1,]
 
 # lasso
-fit <- GGMncv::ggmncv(cor(Y), n = 500,
+fit <- GGMncv::ggmncv(cor(Y), n = 5000,
                       penalty = "lasso", 
                       progress = FALSE)
 
@@ -283,11 +284,12 @@ Notice that both methods work well.
 
 ### 75% Sparsity
 ```{r}
+set.seed(1)
 # data
-Y <- MASS::mvrnorm(n = 500,
+Y <- MASS::mvrnorm(n = 5000,
                    rep(0, 10),
                    Sigma = eprob_25$cors,
-                   empirical = TRUE) 
+                   empirical = FALSE) 
 
 # non regularized, for comparison
 fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
@@ -298,7 +300,7 @@ IRCcheck:::compare(True = eprob_25$adj,
 
 # lasso
 fit <- GGMncv::ggmncv(cor(Y), 
-              n = 500, 
+              n = 5000, 
               penalty = "lasso", 
               progress = FALSE)
 
@@ -311,11 +313,12 @@ IRCcheck:::compare(True = eprob_25$adj,
 Now we are getting to a level of sparsity that is common in, say, the social-behavioral
 sciences.
 ```{r}
+set.seed(1)
 # data
-Y <- MASS::mvrnorm(n = 500,
+Y <- MASS::mvrnorm(n = 5000,
                    rep(0, 10),
                    Sigma = eprob_50$cors,
-                   empirical = TRUE) 
+                   empirical = FALSE) 
 
 # non regularized, for comparison
 fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
@@ -326,7 +329,7 @@ IRCcheck:::compare(True = eprob_50$adj,
 
 # lasso
 fit <- GGMncv::ggmncv(cor(Y), 
-              n = 500, 
+              n = 5000, 
               penalty = "lasso", 
               progress = FALSE)
 
@@ -339,11 +342,12 @@ IRCcheck:::compare(True = eprob_50$adj,
 ### 25% Sparsity
 An even denser graph, which is not uncommon.
 ```{r}
+set.seed(1)
 # data
-Y <- MASS::mvrnorm(n = 500,
+Y <- MASS::mvrnorm(n = 5000,
                    rep(0, 10),
                    Sigma = eprob_75$cors,
-                   empirical = TRUE) 
+                   empirical = FALSE) 
 
 # non regularized, for comparison
 fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
@@ -354,7 +358,7 @@ IRCcheck:::compare(True = eprob_75$adj,
 
 # lasso
 fit <- GGMncv::ggmncv(cor(Y), 
-              n = 500, 
+              n = 5000, 
               penalty = "lasso", 
               progress = FALSE)
 
