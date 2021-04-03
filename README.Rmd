@@ -189,7 +189,9 @@ it has a **HUGE** impact on false positives. The following is a somewhat "ugly" 
 
 
 Let's hold all constant (p and effect size) but sparsity and 
-examine the infinity norm (must be less than 1).
+examine the infinity norm (must be less than 1). Below, `gen_net`
+generates a true network, or GGM, with partial correlations
+in a certain range (`lb` and `ub`).
 
 ```{r}
 # 5 % connections (95 % sparsity)
@@ -279,7 +281,7 @@ IRCcheck:::compare(True = eprob_05$adj,
 
 Notice that both methods work well.
 
-### 75 % Sparsity
+### 75% Sparsity
 ```{r}
 # data
 Y <- MASS::mvrnorm(n = 500,
@@ -305,7 +307,7 @@ IRCcheck:::compare(True = eprob_25$adj,
         Estimate = fit$adj)[1,]
 ````
 
-### 50 % Sparsity
+### 50% Sparsity
 Now we are getting to a level of sparsity that is common in, say, the social-behavioral
 sciences.
 ```{r}
@@ -367,7 +369,7 @@ IRCcheck:::compare(True = eprob_75$adj,
 
 
 At each step along the way, the false positive rate for (g)lasso increased to be shockingly 
-high. On the other hand, the non-regularized method based on gold old
+high. On the other hand, the non-regularized method based on good old
 *p*-values had no issue. 
 
 Together, this simple example demonstrated that the false positive rate is a function of the IRC.
