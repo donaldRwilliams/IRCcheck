@@ -230,7 +230,7 @@ eprob_50 <- IRCcheck::gen_net(
   ub = 0.25
 )
 
-# 70 % connections (70 % sparsity)
+# 75 % connections (25 % sparsity)
 eprob_75 <- IRCcheck::gen_net(
   p = 10,
   edge_prob = 0.75,
@@ -367,8 +367,7 @@ IRCcheck:::compare(True = eprob_50$adj,
 
 ### 25% Sparsity
 
-Now we are getting to a level of sparsity that is common in, say, the
-social-behavioral sciences
+An even denser graph, which is not uncommon.
 
 ``` r
 # data
