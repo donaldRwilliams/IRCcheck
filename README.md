@@ -41,6 +41,9 @@ Here it is assumed that there is *no* covariance between the important
 
 ``` r
 library(IRCcheck)
+# install from github
+library(GGMnonreg)
+library(GGMncv)
 library(corrplot)
 library(corpcor)
 library(glmnet)
@@ -189,6 +192,47 @@ fact, the IRC was not satisfied in any of the checks (10 iterations).
 The IRC will fail less often with fewer variables. Also, if `0.05` is
 changed to a larger value this will result in more sparsity. As a
 result, the IRC will be satisfied more often.
+
+## A Mere Statistical Curiosity?
+
+It might be tempting to think that violating IRC, like many other
+assumptions, will have some effect but perhaps not all that much. In my
+experience, the importance of the IRC cannot be understated: it has a
+**HUGE** impact on false positives. The following is a somewhat “ugly”
+example.
+
+First let’s hold all constant but sparsity and examine the infinity norm
+(must be less than 1).
+
+``` r
+# 5 % connections (95 % sparsity)
+eprob_05 <- gen_net(p = 10, edge_prob = 0.05, lb = 0.05, ub = 0.3)
+
+# 25 % connections (75 % sparsity)
+eprob_25 <- gen_net(p = 10, edge_prob = 0.25, lb = 0.05, ub = 0.3)
+
+# most networks in the social-behavioral sciences are **not** sparse
+# 50 % connections (50 % sparsity)
+eprob_50 <- gen_net(p = 10, edge_prob = 0.50, lb = 0.05, ub = 0.3)
+
+# 70 % connections (70 % sparsity)
+eprob_75 <- gen_net(p = 10, edge_prob = 0.75, lb = 0.05, ub = 0.3)
+
+
+# compute infinity norms
+ircs <- sapply(
+list(eprob_05, eprob_25, eprob_50, eprob_75),function(x){
+irc_ggm(x$pcors)
+}
+)
+
+# plot
+plot(c(0.05, 0.25, 0.50, 0.75), 1- ircs, 
+     ylab = "Infinity Norm", 
+     xlab = "Edge Probability (Connectivity)")
+```
+
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
 
 ## References
 
