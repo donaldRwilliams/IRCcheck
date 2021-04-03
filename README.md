@@ -58,7 +58,7 @@ cors <- IRCcheck:::irc_met
 corrplot(cors)
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" />
 
 In this plot, variables 1 through 10 and 11 through 20 are correlated
 with each other. The latter are assumed to be “active” for predicting
@@ -88,7 +88,7 @@ fit <- glmnet(X, y)
 plot(fit, xvar = "lambda")
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" />
 
 ## Example: IRC is not met
 
@@ -106,7 +106,7 @@ cors <- cov2cor(
 corrplot(cors)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="75%" />
 
 Now there are correlations between the sets, which, in my experience, is
 the more realistic situation (albeit these are very strong
@@ -139,7 +139,7 @@ fit <- glmnet(X, y)
 plot(fit, xvar = "lambda")
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="75%" />
 
 Quite the difference (e.g., all true coefficients are positive). Note
 that the goal is then to select lambda, which will be quite the
@@ -177,7 +177,7 @@ hist(1- irc, breaks = 100,
      main = "", xlim  = c(min(1 - irc), 1))
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="75%" />
 
 ``` r
 
@@ -201,38 +201,64 @@ experience, the importance of the IRC cannot be understated: it has a
 **HUGE** impact on false positives. The following is a somewhat “ugly”
 example.
 
-First let’s hold all constant but sparsity and examine the infinity norm
-(must be less than 1).
+Let’s hold all constant (p and effect size) but sparsity and examine the
+infinity norm (must be less than 1).
 
 ``` r
 # 5 % connections (95 % sparsity)
-eprob_05 <- gen_net(p = 10, edge_prob = 0.05, lb = 0.05, ub = 0.3)
+eprob_05 <- gen_net(
+  p = 10,
+  edge_prob = 0.05,
+  lb = 0.05,
+  ub = 0.3
+)
 
 # 25 % connections (75 % sparsity)
-eprob_25 <- gen_net(p = 10, edge_prob = 0.25, lb = 0.05, ub = 0.3)
+eprob_25 <- gen_net(
+  p = 10,
+  edge_prob = 0.25,
+  lb = 0.05,
+  ub = 0.3
+)
 
 # most networks in the social-behavioral sciences are **not** sparse
 # 50 % connections (50 % sparsity)
-eprob_50 <- gen_net(p = 10, edge_prob = 0.50, lb = 0.05, ub = 0.3)
-
-# 70 % connections (70 % sparsity)
-eprob_75 <- gen_net(p = 10, edge_prob = 0.75, lb = 0.05, ub = 0.3)
-
-
-# compute infinity norms
-ircs <- sapply(
-list(eprob_05, eprob_25, eprob_50, eprob_75),function(x){
-irc_ggm(x$pcors)
-}
+eprob_50 <- gen_net(
+  p = 10,
+  edge_prob = 0.50,
+  lb = 0.05,
+  ub = 0.3
 )
 
+# 70 % connections (70 % sparsity)
+eprob_75 <- gen_net(
+  p = 10,
+  edge_prob = 0.75,
+  lb = 0.05,
+  ub = 0.3
+)
+
+# compute infinity norms
+ircs <-
+  sapply(list(eprob_05, 
+              eprob_25, 
+              eprob_50, 
+              eprob_75), function(x) {
+    irc_ggm(x$pcors)
+  })
+
 # plot
-plot(c(0.05, 0.25, 0.50, 0.75), 1- ircs, 
-     ylab = "Infinity Norm", 
-     xlab = "Edge Probability (Connectivity)")
+plot(
+  c(0.05, 0.25, 0.50, 0.75),
+  1 - ircs,
+  cex = 5,
+  ylab = "Infinity Norm",
+  xlab = "Edge Probability (Connectivity)"
+)
+abline(h = 0)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="75%" />
 
 ## References
 
