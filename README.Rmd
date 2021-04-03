@@ -193,36 +193,36 @@ examine the infinity norm (must be less than 1).
 
 ```{r}
 # 5 % connections (95 % sparsity)
-eprob_05 <- gen_net(
+eprob_05 <- IRCcheck::gen_net(
   p = 10,
   edge_prob = 0.05,
   lb = 0.05,
-  ub = 0.3
+  ub = 0.25
 )
 
 # 25 % connections (75 % sparsity)
-eprob_25 <- gen_net(
+eprob_25 <- IRCcheck::gen_net(
   p = 10,
   edge_prob = 0.25,
   lb = 0.05,
-  ub = 0.3
+  ub = 0.25
 )
 
 # most networks in the social-behavioral sciences are **not** sparse
 # 50 % connections (50 % sparsity)
-eprob_50 <- gen_net(
+eprob_50 <- IRCcheck::gen_net(
   p = 10,
   edge_prob = 0.50,
   lb = 0.05,
-  ub = 0.3
+  ub = 0.25
 )
 
 # 70 % connections (70 % sparsity)
-eprob_75 <- gen_net(
+eprob_75 <- IRCcheck::gen_net(
   p = 10,
   edge_prob = 0.75,
   lb = 0.05,
-  ub = 0.3
+  ub = 0.25
 )
 
 # compute infinity norms
@@ -231,21 +231,146 @@ ircs <-
               eprob_25, 
               eprob_50, 
               eprob_75), function(x) {
-    irc_ggm(x$pcors)
+    IRCcheck::irc_ggm(x$pcors)
   })
 
 # plot
 plot(
   c(0.05, 0.25, 0.50, 0.75),
   1 - ircs,
-  cex = 5,
-  ylab = "Infinity Norm",
+  cex = 2,
+  ylab = "1 - Infinity Norm",
   xlab = "Edge Probability (Connectivity)"
 )
 abline(h = 0)
 ```
 
+Because I subtracted 1, negative values fail to meet the IRC. As the graph becomes less sparse
+(higher edge probability) the infinity norm becomes larger, i.e., the covariance between
+the unimportant and important increases, which should translate into more false positives.
+
+Now let's check specificity (1 - the false positive) in simulated data. At each step,
+the IRC is increasingly violated.
+
+### 95% Sparsity
+```{r}
+# data
+Y <- MASS::mvrnorm(n = 500,
+                   rep(0, 10),
+                   Sigma = eprob_05$cors,
+                   empirical = TRUE) 
+
+# non regularized, for comparison
+fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
+
+# specificity
+IRCcheck:::compare(True = eprob_05$adj, 
+                   Estimate = fit$adj)[1,]
+
+# lasso
+fit <- GGMncv::ggmncv(cor(Y), n = 500,
+                      penalty = "lasso", 
+                      progress = FALSE)
+
+# specificity
+IRCcheck:::compare(True = eprob_05$adj, 
+                   Estimate = fit$adj)[1,]
+````
+
+Notice that both methods work well.
+
+### 75 % Sparsity
+```{r}
+# data
+Y <- MASS::mvrnorm(n = 500,
+                   rep(0, 10),
+                   Sigma = eprob_25$cors,
+                   empirical = TRUE) 
+
+# non regularized, for comparison
+fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
+
+# specificity
+IRCcheck:::compare(True = eprob_25$adj, 
+                   Estimate = fit$adj)[1,]
+
+# lasso
+fit <- GGMncv::ggmncv(cor(Y), 
+              n = 500, 
+              penalty = "lasso", 
+              progress = FALSE)
+
+# specificity
+IRCcheck:::compare(True = eprob_25$adj, 
+        Estimate = fit$adj)[1,]
+````
+
+### 50 % Sparsity
+Now we are getting to a level of sparsity that is common in, say, the social-behavioral
+sciences.
+```{r}
+# data
+Y <- MASS::mvrnorm(n = 500,
+                   rep(0, 10),
+                   Sigma = eprob_50$cors,
+                   empirical = TRUE) 
+
+# non regularized, for comparison
+fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
+
+# specificity
+IRCcheck:::compare(True = eprob_50$adj, 
+                   Estimate = fit$adj)[1,]
+
+# lasso
+fit <- GGMncv::ggmncv(cor(Y), 
+              n = 500, 
+              penalty = "lasso", 
+              progress = FALSE)
+
+# specificity
+IRCcheck:::compare(True = eprob_50$adj, 
+        Estimate = fit$adj)[1,]
+````
 
 
+### 25% Sparsity
+Now we are getting to a level of sparsity that is common in, say, the social-behavioral
+sciences
+```{r}
+# data
+Y <- MASS::mvrnorm(n = 500,
+                   rep(0, 10),
+                   Sigma = eprob_75$cors,
+                   empirical = TRUE) 
+
+# non regularized, for comparison
+fit <- GGMnonreg::ggm_inference(Y, boot = FALSE)
+
+# specificity
+IRCcheck:::compare(True = eprob_75$adj, 
+                   Estimate = fit$adj)[1,]
+
+# lasso
+fit <- GGMncv::ggmncv(cor(Y), 
+              n = 500, 
+              penalty = "lasso", 
+              progress = FALSE)
+
+# specificity
+IRCcheck:::compare(True = eprob_75$adj, 
+        Estimate = fit$adj)[1,]
+
+# false positive rate
+1 - IRCcheck:::compare(True = eprob_75$adj, 
+            Estimate = fit$adj)[1,2]
+````
+
+
+At each step along the way, the false positive rate for (g)lasso increased to be shockingly 
+high. On the other hand, the non-regularized method based on gold old
+*p*-values had no issue. 
+
+Together, this simple example demonstrated that the false positive rate is a function of the IRC.
 
 ## References
