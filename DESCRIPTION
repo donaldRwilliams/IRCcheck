@@ -7,7 +7,7 @@ Authors@R:
            family = "Williams",
            role = c("aut", "cre"),
            email = "drwwilliams@ucdavis.edu")
-Description: Check the irrepresentable condition (IRC) in both L1-regularized regression <10.1109/TIT.2006.883611>
+Description: Check the irrepresentable condition (IRC) in both L1-regularized regression <doi:10.1109/TIT.2006.883611>
             and Gaussian graphical models. The IRC requires that the important and unimportant variables 
             are not correlated, at least not all that much, and it is necessary for consistent model
             selection. Exploring the IRC as a function of the number of variables, assumed sparsity,
