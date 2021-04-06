@@ -27,7 +27,13 @@ is violated when the value is negative.
 \donttest{
 # data
 # note: irc_met (block diagonal; 1st 10 active)
-cors <- IRCcheck:::irc_met
+cors  <- rbind(
+cbind(matrix(.7, 10,10), matrix(0, 10,10)),
+cbind(matrix(0, 10,10), matrix(0.7, 10,10))
+)
+diag(cors) <- 1
+
+
 X <- MASS::mvrnorm(2500, rep(0, 20), Sigma = cors, empirical = TRUE)
  
 # check IRC
