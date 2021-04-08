@@ -30,7 +30,7 @@ adj <- matrix(sample(0:1, size = p^2, replace = TRUE,
               prob = c(0.9, 0.1) ), 
               nrow = p, ncol = p)
 
-adj <-  IRCcheck:::symm_mat(adj)
+adj <-  symm_mat(adj)
 
 diag(adj) <- 1
 
