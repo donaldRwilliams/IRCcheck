@@ -5,6 +5,9 @@
 
 # IRCcheck: Irrepresentable Condition Check
 
+[![CRAN
+Version](http://www.r-pkg.org/badges/version/IRCcheck)](https://cran.r-project.org/package=IRCcheck)
+[![Downloads](https://cranlogs.r-pkg.org/badges/IRCcheck)](https://cran.r-project.org/package=IRCcheck)
 [![CircleCI build
 status](https://circleci.com/gh/donaldRwilliams/IRCcheck.svg?style=svg)](https://circleci.com/gh/donaldRwilliams/IRCcheck)
 
