@@ -9,7 +9,7 @@
 Version](http://www.r-pkg.org/badges/version/IRCcheck)](https://cran.r-project.org/package=IRCcheck)
 [![Downloads](https://cranlogs.r-pkg.org/badges/IRCcheck)](https://cran.r-project.org/package=IRCcheck)
 [![CircleCI build
-status](https://circleci.com/gh/donaldRwilliams/IRCcheck.svg?style=svg)](https://circleci.com/gh/donaldRwilliams/IRCcheck)
+status](https://circleci.com/gh/donaldRwilliams/IRCcheck.svg?style=shield)](https://circleci.com/gh/donaldRwilliams/IRCcheck)
 
 The goal of IRCcheck is to check the irrepresentable condition in both
 L1-regularized regression (Equation 2 in Zhao and Yu 2006) and Gaussian
